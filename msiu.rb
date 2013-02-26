@@ -67,6 +67,7 @@ DATA
 
 #Twitter Bootstrap
 gem 'anjlab-bootstrap-rails', :require=> 'bootstrap-rails'
+gem 'font-awesome-sass-rails'
 run 'rm app/views/layouts/application.html.erb'
 file 'app/views/layouts/application.html.haml', <<-DATA
 !!!
@@ -109,7 +110,8 @@ DATA
 
 file 'app/assets/stylesheets/main.css.scss', <<-DATA
 @import 'twitter/bootstrap';
-@import "twitter/bootstrap-responsive";
+@import 'twitter/bootstrap-responsive';
+@import 'font-awesome';
 
 body{
   padding-top: 60px;
