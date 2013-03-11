@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'base64'
 require 'thor'
 
@@ -28,7 +29,7 @@ puts db_username
 db_password=ask("Database password:")
 
 gsub_file 'config/database.yml', /username:.*$/, "username: #{db_username}" if db_username.present?
-gsub_file 'config/database.yml', 'password:.*$', "password: #{db_password}" if db_password.present?
+gsub_file 'config/database.yml', /password:.*$/, "password: #{db_password}" if db_password.present?
 
 #Настройка локали
 gsub_file 'config/application.rb', /^.*#.*config.i18n.default_locale\s*=.*$/, '  config.i18n.default_locale = :ru'
