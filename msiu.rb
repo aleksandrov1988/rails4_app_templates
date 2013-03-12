@@ -195,7 +195,7 @@ DATA
 insert_into_file 'app/helpers/application_helper.rb', :before => /^end\s*\z/ do
   <<-DATA
   def error_messages_for(object)
-    render 'layouts/errors', object: object
+    render 'layouts/error_messages_for', object: object
   end
 
   def copyright_years
