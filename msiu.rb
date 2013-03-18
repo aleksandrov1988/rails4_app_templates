@@ -212,6 +212,19 @@ end
 generate(:model, "User login surname name patronymic roles:integer")
 
 
+#Kaminari
+gem 'kaminari'
+append_file 'config/locales/ru.yml', <<-DATA
+  views:
+    pagination:
+      first: ⇤
+      last: ⇥
+      previous: ←
+      next: →
+      truncate: …
+DATA
+
+
 #Git
 
 git :init
@@ -222,3 +235,8 @@ git :commit=> %Q{ -m 'Initial commit' }
 #Create database
 rake 'db:migrate'
 
+run 'bundle install'
+
+#After bundle
+
+generate 'kaminari:views','bootstrap','-e','haml'
