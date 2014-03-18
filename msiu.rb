@@ -4,11 +4,11 @@ require 'thor'
 
 
 # Баг в Thor. binread всегда считывает US-ASCII
-File.instance_eval do
-  def binread(file)
-    File.open(file, "rb:#{Encoding.default_external.to_s}") { |f| f.read }
-  end
-end
+#File.instance_eval do
+#  def binread(file)
+#    File.open(file, "rb:#{Encoding.default_external.to_s}") { |f| f.read }
+#  end
+#end
 
 
 #Загрузка изображений МГИУ
@@ -23,7 +23,7 @@ file 'app/assets/images/logo.png', Base64.decode64(logo_data)
 #Имя пользователя и пароль к БД
 
 db_username=ask("Database username:")
-puts db_username
+
 db_password=ask("Database password:")
 
 gsub_file 'config/database.yml', /username:.*$/, "username: #{db_username}" if db_username.present?
@@ -34,6 +34,8 @@ gem 'rails-i18n'
 gsub_file 'config/application.rb', /^.*#.*config.i18n.default_locale\s*=.*$/, '  config.i18n.default_locale = :ru'
 file 'config/locales/ru.yml', <<-DATA
 ru:
+  app:
+    name: Название приложения
   helpers:   
     submit:
       create: Сохранить
