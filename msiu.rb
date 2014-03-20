@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-require 'base64'
+
+
 require 'thor'
 require 'open-uri'
 
@@ -20,11 +20,11 @@ end
 
 
 # Баг в Thor. binread всегда считывает US-ASCII
-#File.instance_eval do
-#  def binread(file)
-#    File.open(file, "rb:#{Encoding.default_external.to_s}") { |f| f.read }
-#  end
-#end
+File.instance_eval do
+  def binread(file)
+    File.open(file, "rb:#{Encoding.default_external.to_s}") { |f| f.read }
+  end
+end
 
 
 #Загрузка изображений МГИУ
@@ -49,16 +49,16 @@ get_file 'config/locales/ru.yml', file_url('ru.yml')
 insert_into_file 'config/application.rb', :before => /\s+end\s+end\s*\z/ do
   "\n    config.assets.paths << \"\#{Rails}/vendor/assets/fonts\"\n
          config.assets.precompile += %w(*.svg *.eot *.woff *.ttf)"
-
+end
   get_font('intro.woff')
   get_font('open_sans.woff')
-  %w(bold italic light).each { |x| get_font("open_sans_#{x}") }
+  %w(bold italic light).each { |x| get_font("open_sans_#{x}.woff") }
   get_font('ubuntu_mono.woff')
   get_font('ubuntu_mono_bold.woff')
   get_font('ubuntu_mono_italic.woff')
 
   get_file 'vendor/assets/stylesheets/fonts.css.scss', file_url('fonts/fonts.css.scss')
-end
+
 
 #Установка часового пояса
 gsub_file 'config/application.rb', /^.*#.*config.time_zone\s*=.*$/, '  config.time_zone = \'Moscow\''
@@ -121,7 +121,7 @@ file 'vendor/assets/stylesheets/colors.css.scss', colors.map { |k, v| "$#{k}: #{
 
 append_file 'vendor/assets/stylesheets/colors.css.scss', "\n$color_names: #{colors.keys.join(' ')};\n $color_values: #{colors.keys.map { |x| " $#{x}" }.join(' ')};\n"
 
-%w(buttons footer main).each { |x| get_file 'vendor/assets/stylesheets/#{x}.css.scss', file_url("stylesheets/#{x}.css.scss") }
+%w(buttons footer main).each { |x| get_file "vendor/assets/stylesheets/#{x}.css.scss", file_url("stylesheets/#{x}.css.scss") }
 
 
 insert_into_file 'app/assets/stylesheets/application.css', " *= require font-awesome\n", :before => /^\s*\*=\s*require_tree\s+\./
