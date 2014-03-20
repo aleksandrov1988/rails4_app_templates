@@ -3,7 +3,7 @@ require 'base64'
 require 'thor'
 require 'open-uri'
 
-repo='https://github.com/aai10/rails4_app_templates/raw/master'
+$repo='https://github.com/aai10/rails4_app_templates/raw/master'
 
 def get_file(path, url)
   file path, open(url).read
@@ -14,7 +14,7 @@ def get_font(name)
 end
 
 
-def file_url(name, base_url=repo)
+def file_url(name, base_url=$repo)
   "#{base_url}/files/#{name}"
 end
 
