@@ -1,0 +1,27 @@
+!!! 5
+%html
+  %head
+    %title="ФГБОУ ВПО «МГИУ». #{t('app.name')}"
+    %meta{charset: 'utf-8'}
+    %meta{name: 'viewport', content: "width=device-width, initial-scale=1.0"}
+    =stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    =javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    #wrap
+      .navbar
+        .container
+          .navbar-header
+            =link_to root_path,class: 'navbar-brand' do
+              =image_tag('logo.png', alt: 'ФГБОУ ВПО «МГИУ»')
+          .pull-right.intro.navbar-header
+            .navbar-brand2
+              =link_to root_path,class: 'brand' do
+                %span.msiu-red
+                  МГИУ.
+                =t('app.name')
+      .container.main
+        =render 'layouts/flash_messages'
+        =yield
+    %footer#footer
+      =render 'layouts/footer'

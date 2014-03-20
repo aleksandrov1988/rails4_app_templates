@@ -1,0 +1,38 @@
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -1*($footer-height+2*$footer-padding-vertical);
+  /* Pad bottom by footer height */
+  padding: 0 0 ($footer-height+$footer-margin-top+20px);
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  min-height: $footer-height;
+  height: auto;
+  background: $footer-bg;
+  padding:$footer-padding-vertical 0;
+  margin-top: $footer-margin-top;
+  color: $msiu-gray;
+  a{
+    color: $white;
+    text-decoration: none;
+    &:hover{
+      color: $msiu-red;
+      transition: .3s all ease;
+    }
+
+  }
+}
