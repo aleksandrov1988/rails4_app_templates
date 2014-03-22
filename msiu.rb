@@ -117,15 +117,16 @@ colors={'msiu-red' => '#9e2341', 'msiu-gray' => '#a7a9ac', :turquoise => '#1abc9
         :clouds => '#ecf0f1', :concrete => '#95a5a6', :orange => '#f39c12', :pumpkin => '#d35400', :pomegranate => '#c0392b',
         :silver => '#bdc3c7', :asbestos => '#7f8c8d'}
 
-file 'vendor/assets/stylesheets/colors.css.scss', colors.map { |k, v| "$#{k}: #{v};" }.join("\n")
+file 'app/assets/stylesheets/colors.css.scss', colors.map { |k, v| "$#{k}: #{v};" }.join("\n")
 
-append_file 'vendor/assets/stylesheets/colors.css.scss', "\n$color_names: #{colors.keys.join(' ')};\n $color_values: #{colors.keys.map { |x| " $#{x}" }.join(' ')};\n"
+append_file 'app/assets/stylesheets/colors.css.scss', "\n$color_names: #{colors.keys.join(' ')};\n $color_values: #{colors.keys.map { |x| " $#{x}" }.join(' ')};\n"
 
-%w(buttons footer main).each { |x| get_file "vendor/assets/stylesheets/#{x}.css.scss", file_url("stylesheets/#{x}.css.scss") }
+%w(buttons footer main).each { |x| get_file "app/assets/stylesheets/#{x}.css.scss", file_url("stylesheets/#{x}.css.scss") }
 
 
 insert_into_file 'app/assets/stylesheets/application.css', " *= require font-awesome\n", :before => /^\s*\*=\s*require_tree\s+\./
 insert_into_file 'app/assets/stylesheets/application.css', " *= require fonts\n", :before => /^\s*\*=\s*require_tree\s+\./
+gsub_file 'app/assets/stylesheets/application.css', /^.*require_tree.*$/,"\n"
 insert_into_file 'app/assets/javascripts/application.js', "//= require 'bootstrap'\n", :before => /^\s*\/\/=\s*require_tree\s+\./
 
 
@@ -162,8 +163,6 @@ git :add => "."
 append_file '.gitignore', '/.idea'
 git :commit => %Q{ -m 'Initial commit' }
 
-#Create database
-rake 'db:migrate'
 
 run 'bundle install'
 
@@ -174,6 +173,7 @@ generate('kaminari:views', 'bootstrap', '-e', 'haml') if kaminari
 #generate User model
 if cas
   generate(:model, "User login surname name patronymic roles:integer")
+  rake 'db:migrate'
   #logout
   generate(:controller, "Sessions")
   insert_into_file 'app/controllers/sessions_controller.rb', :before => "^.*end\s*\z" do
