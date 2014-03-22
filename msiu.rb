@@ -174,10 +174,10 @@ generate('kaminari:views', 'bootstrap', '-e', 'haml') if kaminari
 #generate User model
 if cas
   generate(:model, "User login surname name patronymic roles:integer")
-  rake 'db:migrate'
+  rake 'db:create db:migrate'
   #logout
   generate(:controller, "Sessions")
-  insert_into_file 'app/controllers/sessions_controller.rb', :before => "^.*end\s*\z" do
+  insert_into_file 'app/controllers/sessions_controller.rb', :before => /^.*end\s*\z/u do
     <<-DATA
     def destroy
       CASClient::Frameworks::Rails::Filter.logout(self)
