@@ -1,4 +1,8 @@
 @for $i from 1 through length($color_names) {
-  @include button-variant(".btn-\#{nth($color_names, $i)}", #fff, nth($color_values, $i), nth($color_values, $i));
+  .btn-#{nth($color_names,$i)}{
+    @include button-variant(#fff, nth($color_values, $i), nth($color_values, $i));
+  }  
 }
-@include button-variant(".btn-clouds", $gray, $clouds,$clouds);
+.btn-clouds{
+  @include button-variant($gray, $clouds,$clouds);
+}  

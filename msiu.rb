@@ -78,7 +78,7 @@ end
 
 #routes
 generate('controller', 'welcome', 'index')
-route "root to: 'welcome#index'"
+route "root 'welcome#index'"
 
 #Twitter Bootstrap
 gem 'bootstrap-sass'
@@ -126,6 +126,7 @@ append_file 'app/assets/stylesheets/colors.css.scss', "\n$color_names: #{colors.
 
 insert_into_file 'app/assets/stylesheets/application.css', " *= require font-awesome\n", :before => /^\s*\*=\s*require_tree\s+\./
 insert_into_file 'app/assets/stylesheets/application.css', " *= require fonts\n", :before => /^\s*\*=\s*require_tree\s+\./
+insert_into_file 'app/assets/stylesheets/application.css', " *= require main\n", :before => /^\s*\*=\s*require_tree\s+\./
 gsub_file 'app/assets/stylesheets/application.css', /^.*require_tree.*$/,"\n"
 insert_into_file 'app/assets/javascripts/application.js', "//= require 'bootstrap'\n", :before => /^\s*\/\/=\s*require_tree\s+\./
 

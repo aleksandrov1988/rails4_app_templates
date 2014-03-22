@@ -13,6 +13,7 @@ $footer-height: 140px;
 $footer-margin-top: 30px;
 $footer-padding-vertical: 30px;
 $footer-bg: #333;
+$footer-color: #ddd;
 
 
 @import 'colors';
@@ -20,7 +21,14 @@ $footer-bg: #333;
 
 @import 'buttons';
 @import 'footer';
-@import 'flash_messages';
+
+body{
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-weight: 300;
+}
 
 a.brand {
   color: $msiu-gray;
