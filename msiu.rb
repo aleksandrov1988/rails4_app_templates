@@ -1,7 +1,7 @@
 require 'thor'
 require 'open-uri'
 
-$repo='https://github.com/aai10/rails4_app_templates/raw/master'
+$repo='https://github.com/aleksandrov1988/rails4_app_templates/raw/master'
 
 def get_file(path, options={})
 
