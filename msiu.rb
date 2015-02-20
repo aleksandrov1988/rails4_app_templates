@@ -34,11 +34,11 @@ end
 
 #Имя пользователя и пароль к БД
 
-db_username=ask("Database username:")
-db_password=ask("Database password:")
-
-gsub_file 'config/database.yml', /username:.*$/, "username: #{db_username}" if db_username.present?
-gsub_file 'config/database.yml', /password:.*$/, "password: #{db_password}" if db_password.present?
+# db_username=ask("Database username:")
+# db_password=ask("Database password:")
+#
+# gsub_file 'config/database.yml', /username:.*$/, "username: #{db_username}" if db_username.present?
+# gsub_file 'config/database.yml', /password:.*$/, "password: #{db_password}" if db_password.present?
 
 #Настройка локали
 gem 'rails-i18n'
@@ -86,13 +86,16 @@ insert_into_file 'app/assets/javascripts/application.js', "//= require 'bootstra
 
 get_file 'app/assets/stylesheets/theme.sass'
 gsub_file 'app/assets/stylesheets/application.css',/^.*\*=.*require_tree.*\..*$/,' *= require theme'
+get_file 'app/assets/stylesheets/buttons.sass'
+get_file 'app/assets/stylesheets/sidebar.sass'
+get_file 'app/assets/stylesheets/main.sass'
 
 #SASS
 get_file 'config/initializers/scss.rb'
 
 #Animate.css
 get_file 'vendor/assets/stylesheets/animate.css', url: 'https://raw.github.com/daneden/animate.css/master/animate.css'
-insert_into_file 'app/assets/stylesheets/theme.sass', "@import animate\n", after: /^.*@import .*bootstrap.*$/
+insert_into_file 'app/assets/stylesheets/theme.sass', "\n@import animate\n", after: /^.*@import .*bootstrap\s*$/
 
 #Font Awesome
 gem 'font-awesome-rails'
@@ -121,7 +124,7 @@ if yes?("Need nested fields?")
 end
 
 if yes?("Need flash messages?")
-  if yes?("Use growl")
+  if yes?("Use growl?")
     get_file 'vendor/assets/javascripts/bootstrap-growl.min.js'
     get_file 'app/views/application/_flash_messages.html.haml', path: 'app/views/application/_flash_messages_growl.html.haml'
     insert_into_file 'app/assets/javascripts/application.js', "//= require bootstrap-growl.min\n", before: /^\s*\*=\s*require_tree\s+\./
