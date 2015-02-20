@@ -1,7 +1,7 @@
 require 'thor'
 require 'open-uri'
 
-$repo='https://github.com/aleksandrov1988/rails4_app_templates/blob/rails42'
+$repo='https://raw.githubusercontent.com/aleksandrov1988/rails4_app_templates/rails42'
 
 def get_file(path, options={})
 
@@ -102,7 +102,6 @@ gem 'font-awesome-rails'
 run 'rm app/views/layouts/application.html.erb'
 
 get_file('app/views/layouts/application.html.haml')
-get_file('app/views/application/_flash_messages.html.haml')
 get_file('app/views/application/_navbar_top.html.haml')
 get_file('app/views/application/_sidebar.html.haml')
 get_file('app/views/application/error.html.haml')
@@ -160,7 +159,7 @@ end
 
 
 #Kaminari
-kaminari=yes?("Kaminari")
+kaminari=yes?("Use kaminari?")
 if kaminari
   gem 'kaminari'
   gem 'kaminari-bootstrap'
