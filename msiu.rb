@@ -88,7 +88,7 @@ get_file 'app/assets/stylesheets/theme.sass'
 gsub_file 'app/assets/stylesheets/application.css',/^.*\*=.*require_tree.*\..*$/,' *= require theme'
 
 #SASS
-get_file 'config/initializers/sass.rb'
+get_file 'config/initializers/scss.rb'
 
 #Animate.css
 get_file 'vendor/assets/stylesheets/animate.css', url: 'https://raw.github.com/daneden/animate.css/master/animate.css'
