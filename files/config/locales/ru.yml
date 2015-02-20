@@ -1,6 +1,8 @@
 ru:
   app:
     name: Название приложения
+    company:
+      short_name: НИЯУ «МИФИ»
   helpers:
     submit:
       create: Сохранить

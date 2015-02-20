@@ -1,0 +1,5 @@
+%nav.navbar.navbar-default
+  .container-fluid
+    =link_to "#wrapper", id: 'sidebar-toggle', class: 'navbar-text' do
+      =fa_icon 'bars'
+    .navbar-header=link_to t('app.name'),root_path, class: 'navbar-brand light'

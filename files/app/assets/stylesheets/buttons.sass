@@ -1,0 +1,17 @@
+$btn-styles: (default: $btn-default-bg, primary: $btn-primary-bg, success: $btn-success-bg, info: $btn-info-bg, warning: $btn-warning-bg, danger: $btn-danger-bg)
+
+.btn-circle
+  border-radius: 100%
+
+.btn-outline
+  background-color: transparent
+  color: inherit
+  transition: all .5s
+
+@each $style, $color in $btn-styles
+  .btn-#{$style}
+    border-color: $color
+    &.btn-outline
+      color: $color
+      &:hover, &:active, &:focus, &.active
+        color: #fff
