@@ -85,7 +85,7 @@ run 'bundle install'
 insert_into_file 'app/assets/javascripts/application.js', "//= require bootstrap\n", before: /^\s*\/\/=\s*require_tree\s+\./
 
 get_file 'app/assets/stylesheets/theme.sass'
-gsub_file 'app/assets/stylesheets/application.css',/^.*\*=.*require_tree.*\..*$/,' *= require theme'
+gsub_file 'app/assets/stylesheets/application.css', /^.*\*=.*require_tree.*\..*$/, ' *= require theme'
 get_file 'app/assets/stylesheets/buttons.sass'
 get_file 'app/assets/stylesheets/sidebar.sass'
 get_file 'app/assets/stylesheets/main.sass'
@@ -109,6 +109,11 @@ get_file('app/views/application/_navbar_top.html.haml')
 get_file('app/views/application/_sidebar.html.haml')
 get_file('app/views/application/error.html.haml')
 get_file('app/assets/javascripts/sidebar.coffee')
+
+
+%w(apple-icon.png favicon-32x32.png favicon.ico mephi_logo_small_white.png).each do |name|
+  get_file("app/assets/images/#{name}")
+end
 
 
 get_file('app/helpers/copyright_helper.rb')
@@ -144,7 +149,6 @@ end
 # file 'app/assets/stylesheets/colors.css.scss', colors.map { |k, v| "$#{k}: #{v};" }.join("\n")
 #
 # append_file 'app/assets/stylesheets/colors.css.scss', "\n$color_names: #{colors.keys.join(' ')};\n $color_values: #{colors.keys.map { |x| " $#{x}" }.join(' ')};\n"
-
 
 
 # insert_into_file 'app/assets/stylesheets/application.css', " *= require font-awesome\n", :before => /^\s*\*=\s*require_tree\s+\./
@@ -187,7 +191,6 @@ git :commit => %Q{ -m 'Initial commit' }
 
 
 run 'bundle install'
-
 
 
 #render_error
