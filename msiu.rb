@@ -63,7 +63,7 @@ get_file 'vendor/assets/stylesheets/fonts.sass'
 
 
 #Установка часового пояса
-insert_into_file 'config/application.rb', '  config.time_zone = \'Moscow\'', after: /^.*#.*config.time_zone\s*=.*$/
+insert_into_file 'config/application.rb', "\n  config.time_zone = \'Moscow\'", after: /^.*#.*config.time_zone\s*=.*$/
 
 
 gem 'haml-rails'
@@ -82,7 +82,7 @@ route "root 'welcome#index'"
 #Twitter Bootstrap
 gem 'bootstrap-sass'
 run 'bundle install'
-insert_into_file 'app/assets/javascripts/application.js', "//= require 'bootstrap'\n", before: /^\s*\/\/=\s*require_tree\s+\./
+insert_into_file 'app/assets/javascripts/application.js', "//= require bootstrap\n", before: /^\s*\/\/=\s*require_tree\s+\./
 
 get_file 'app/assets/stylesheets/theme.sass'
 gsub_file 'app/assets/stylesheets/application.css',/^.*\*=.*require_tree.*\..*$/,' *= require theme'
@@ -108,6 +108,7 @@ get_file('app/views/layouts/application.html.haml')
 get_file('app/views/application/_navbar_top.html.haml')
 get_file('app/views/application/_sidebar.html.haml')
 get_file('app/views/application/error.html.haml')
+get_file('app/assets/javascripts/sidebar.coffee')
 
 
 get_file('app/helpers/copyright_helper.rb')
