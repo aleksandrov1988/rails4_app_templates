@@ -1,4 +1,9 @@
 %aside#sidebar-wrapper
   %ul.sidebar-nav
-    %li.sidebar-brand=link_to t('app.company.short_name'),root_path
-    %li
+    %li.sidebar-brand
+      =link_to root_path do
+        =image_tag 'mephi_logo_small_white.png', alt: t('app.company.short_name')
+    %li=link_to 'test', ?#
+    %li=link_to 'test', ?#
+    %li=link_to 'test', ?#
+    %li=link_to 'test', ?#
