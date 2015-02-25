@@ -7,9 +7,10 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
-    %link{rel: 'icon', href: image_url('favicon.ico')}
-    %link{rel: 'icon', sizes: '32x32' ,href: image_url('favicon-32x32.png')}
-    %link{rel: 'apple-touch-icon', href: image_url('apple-icon.png')}
+    =favicon_link_tag 'favicon.ico'
+    =favicon_link_tag 'favicon-32x32.png', sizes: '32x32'
+    =favicon_link_tag 'apple-icon.png', rel: 'apple-touch-icon'
+
 
 
   %body
