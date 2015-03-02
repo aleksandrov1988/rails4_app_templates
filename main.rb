@@ -42,7 +42,7 @@ end
 
 #Настройка локали
 gem 'rails-i18n'
-insert_into_file 'config/application.rb', '  config.i18n.default_locale = :ru', after: /^.*#.*default_locale\s*=.*$/
+insert_into_file 'config/application.rb', '\n    config.i18n.default_locale = :ru', after: /^.*#.*default_locale\s*=.*$/
 get_file 'config/locales/ru.yml'
 
 #fonts
@@ -63,7 +63,7 @@ get_file 'vendor/assets/stylesheets/fonts.sass'
 
 
 #Установка часового пояса
-insert_into_file 'config/application.rb', "\n  config.time_zone = \'Moscow\'", after: /^.*#.*config.time_zone\s*=.*$/
+insert_into_file 'config/application.rb', "\n    config.time_zone = \'Moscow\'", after: /^.*#.*config.time_zone\s*=.*$/
 
 
 gem 'haml-rails'
@@ -119,6 +119,7 @@ end
 get_file('app/helpers/copyright_helper.rb')
 
 if yes?("Need \"error messages for\"?")
+  get_file('config/initializers/form_builder.rb')
   get_file('app/helpers/error_messages_helper.rb')
   get_file('app/views/application/_error_messages_for.html.haml')
   get_file('app/views/application/_error_messages_for_attr.html.haml')
