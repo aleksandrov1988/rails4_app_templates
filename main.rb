@@ -42,7 +42,7 @@ end
 
 #Настройка локали
 gem 'rails-i18n'
-insert_into_file 'config/application.rb', '\n    config.i18n.default_locale = :ru', after: /^.*#.*default_locale\s*=.*$/
+insert_into_file 'config/application.rb', "\n    config.i18n.default_locale = :ru", after: /^.*#.*default_locale\s*=.*$/
 get_file 'config/locales/ru.yml'
 
 #fonts
@@ -109,7 +109,7 @@ get_file('app/views/application/_navbar_top.html.haml')
 get_file('app/views/application/_sidebar.html.haml')
 get_file('app/views/application/error.html.haml')
 get_file('app/assets/javascripts/sidebar.coffee')
-
+get_file('config/initializers/active_model_translation.rb')
 
 %w(apple-icon.png favicon-32x32.png favicon.ico mephi_logo_small_white.png).each do |name|
   get_file("app/assets/images/#{name}")
@@ -133,8 +133,9 @@ end
 if yes?("Need flash messages?")
   if yes?("Use growl?")
     get_file 'vendor/assets/javascripts/bootstrap-growl.min.js'
+    get_file 'app/assets/javascripts/growl_messages.coffee'
     get_file 'app/views/application/_flash_messages.html.haml', path: 'app/views/application/_flash_messages_growl.html.haml'
-    insert_into_file 'app/assets/javascripts/application.js', "//= require bootstrap-growl.min\n", before: /^\s*\*=\s*require_tree\s+\./
+    insert_into_file 'app/assets/javascripts/application.js', "//= require bootstrap-growl.min\n", before: /^\s*\/\/=\s*require_tree\s+\./
   else
     get_file 'app/views/application/_flash_messages.html.haml'
   end
