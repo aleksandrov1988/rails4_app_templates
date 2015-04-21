@@ -1,11 +1,14 @@
-@include text-emphasis-variant('.text-purple', $brand-purple)
-
 body
-  font-family: 'Open Sans'
+  padding-top: 90px
+  font-family: 'Proxima Nova Regular'
+  font-weight: normal
 
 .light
-  font-family: 'Open Sans'
   font-weight: 100
+.bold
+  font-weight: 600
+.upcase
+  text-transform: uppercase
 
 .intro
   font-family: 'Intro'
@@ -15,35 +18,25 @@ body
 
 .navbar-brand
   height: auto
+  text-transform: uppercase
+  font-weight: 600
+
+
 
 .has-error .form-control:focus, .form-control:focus
   box-shadow: none
 
-.page-header
-  h1, h2, h3
-    @extend .light
+
 
 .field_with_errors
   @extend .has-error
 
-.box
-  background: #fff
-  border-color: #e7eaec
-  border-width: 5px 0 0
-  border-style: solid none none
-  padding: 15px 20px 20px
-  margin: 20px 0
-  .page-header
-    margin-top: 0
 
 a
   transition: all .5s
   &:hover, &:active, &:focus
     text-decoration: none
 
-.label
-  font-weight: normal
-  border-radius: 0
 
 .alert-block
   position: absolute
@@ -63,3 +56,13 @@ a
   th
     text-align: center
     vertical-align: middle !important
+.actions
+  margin: $padding-base-vertical 0
+
+label.required:after
+  content: "*"
+  color: $brand-danger
+
+.table-default
+  @extend .table-condensed
+  @extend .table-bordered

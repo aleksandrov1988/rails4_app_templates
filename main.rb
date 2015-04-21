@@ -81,17 +81,19 @@ route "root 'welcome#index'"
 
 #Twitter Bootstrap
 gem 'bootstrap-sass'
+gem 'bootstrap_form'
+gem 'ru_propisju'
+
 run 'bundle install'
 insert_into_file 'app/assets/javascripts/application.js', "//= require bootstrap\n", before: /^\s*\/\/=\s*require_tree\s+\./
 
+get_file 'app/assets/stylesheets/vars.sass'
 get_file 'app/assets/stylesheets/theme.sass'
 gsub_file 'app/assets/stylesheets/application.css', /^.*\*=.*require_tree.*\..*$/, ' *= require theme'
 get_file 'app/assets/stylesheets/buttons.sass'
 get_file 'app/assets/stylesheets/sidebar.sass'
 get_file 'app/assets/stylesheets/main.sass'
 
-#SASS
-get_file 'config/initializers/scss.rb'
 
 #Animate.css
 get_file 'vendor/assets/stylesheets/animate.css', url: 'https://raw.github.com/daneden/animate.css/master/animate.css'
@@ -108,6 +110,7 @@ get_file('app/views/layouts/application.html.haml')
 get_file('app/views/application/_navbar_top.html.haml')
 get_file('app/views/application/_sidebar.html.haml')
 get_file('app/views/application/error.html.haml')
+get_file('app/views/application/_footer.html.haml')
 get_file('app/assets/javascripts/sidebar.coffee')
 get_file('config/initializers/active_model_translation.rb')
 
@@ -161,11 +164,42 @@ end
 
 
 #CAS
-# cas=yes?("CAS?")
-# if cas
-#   gem 'rubycas-client-msiu'
-#   get_file 'config/initializers/cas.rb', file_url('cas.rb')
-# end
+cas=yes?("CAS?")
+if cas
+  gem 'rack-cas', :github => 'aleksandrov1988/rack-cas'
+  run 'bundle install'
+  insert_into_file 'config/application.rb', "require 'rack-cas/session_store/rails/active_record'\n",
+                   :after => /^\s*require\s*'rails\/all'\s*\n/
+  insert_into_file 'config/application.rb', :before => /^\s*end\s*\n\s*end\s*\z/ do
+    <<-DATA
+    config.rack_cas.session_store = RackCAS::ActiveRecordStore
+    config.rack_cas.server_url='https://auth.mephi.ru'
+
+    DATA
+  end
+  get_file 'config/initializers/session_store.rb'
+  generate 'cas_session_store_migration'
+
+  def check_authentication
+    if session.blank? || session['cas'].blank? || session['cas']['user'].blank? ||
+        (request.get? && !request.xhr? && (session['cas']['last_validated_at'].blank? || session['cas']['last_validated_at'] < 15.minutes.ago))
+      render text: 'Требуется авторизация', status: 401
+    end
+  end
+
+  insert_into_file 'app/controllers/application_controller.rb', :before => /end\s*\z/ do
+    <<-DATA
+  def check_authentication
+    if session.blank? || session['cas'].blank? || session['cas']['user'].blank? ||
+        (request.get? && !request.xhr? && (session['cas']['last_validated_at'].blank? || session['cas']['last_validated_at'] < 15.minutes.ago))
+      render text: 'Требуется авторизация', status: 401
+    end
+  end
+    DATA
+  end
+
+
+end
 
 
 #Kaminari
@@ -199,9 +233,15 @@ run 'bundle install'
 insert_into_file 'app/controllers/application_controller.rb', :before => /end\s*\z/ do
   <<-DATA
   private
-  def render_error(error='Произошла ошибка', options={})
-    @error=msg
-    render 'error'
+  def render_error(error='Доступ запрещен', options={})
+    @error=error
+    status=options[:status] || 403
+    respond_to do |format|
+      format.html { render 'error', status: status }
+      format.js { render js: %(alert("\#{@error}")), status: status }
+      format.json { render json: {error: @error}, status: status }
+      format.xml { render xml: {error: @error}, status: status }
+    end
   end
   DATA
 end
