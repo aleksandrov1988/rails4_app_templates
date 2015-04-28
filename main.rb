@@ -168,8 +168,8 @@ cas=yes?("CAS?")
 if cas
   gem 'rack-cas', :github => 'aleksandrov1988/rack-cas'
   run 'bundle install'
-  insert_into_file 'config/application.rb', "require 'rack-cas/session_store/rails/active_record'\n",
-                   :after => /^\s*require\s*'rails\/all'\s*\n/
+  insert_into_file 'config/application.rb', "\nrequire 'rack-cas/session_store/active_record'\n",
+                   :after => /^\s*require\s*'rails\/all'\s*$/
   insert_into_file 'config/application.rb', :before => /^\s*end\s*\n\s*end\s*\z/ do
     <<-DATA
     config.rack_cas.session_store = RackCAS::ActiveRecordStore
